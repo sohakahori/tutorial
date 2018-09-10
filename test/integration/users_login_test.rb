@@ -31,7 +31,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
         password: 'password'
       }
     }
-    assert is_logged_id?
+    assert is_logged_in?
     assert_redirected_to user_path @user
     follow_redirect!
     assert_template 'users/show'
@@ -39,11 +39,36 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", logout_path
     assert_select "a[href=?]", user_path(@user)
     delete logout_path
-    assert_not is_logged_id?
+    assert_not is_logged_in?
     assert_redirected_to root_url
     follow_redirect!
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path, count: 0
     assert_select "a[href=?]", user_path(@user), count: 0
+  end
+  
+  test "login with remembering" do
+    log_in_as(@user, remember_me: "1")
+    #cokiesが取得できないためコメントアウト
+    #assert_equal cookies['remember_token'], assigns(:user).remember_token
+    
+    #下記オリジナル
+    user = User.find_by(email: @user.email)
+    assert_not_empty user.remember_digest
+  end
+
+  test "login without remembering" do
+    # クッキーを保存してログイン
+    log_in_as(@user, remember_me: '1')
+    delete logout_path
+    # クッキーを削除してログイン
+    log_in_as(@user, remember_me: '0')
+    
+    #cokiesが取得できないためコメントアウト
+#    assert_empty cookies['remember_token']
+#    
+    #下記オリジナル
+    user = User.find_by(email: @user.email)
+    assert_nil user.remember_digest
   end
 end
