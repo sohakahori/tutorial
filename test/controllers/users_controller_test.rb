@@ -31,6 +31,22 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
   end
 
+  test "should redirect index when not logged in" do
+    log_in_as @user
+    get users_path
+    assert_response :success
+  end
+
+  test "should not allow the admin attribute to be edited via the web" do
+    log_in_as(@other_user)
+    assert_not @other_user.admin?
+    patch user_path(@other_user), params: {
+        user: { password:              "",
+                password_confirmation: "",
+                admin: true } }
+    assert_not @other_user.reload.admin?
+  end
+
 
 
 end

@@ -10,6 +10,11 @@ end
 gem 'rails', '~> 5.1.4'
 # bcrypt
 gem 'bcrypt',         '3.1.12'
+# faker
+gem 'faker'
+# pagination
+gem 'will_paginate',           '3.1.6'
+gem 'bootstrap-will_paginate', '1.0.0'
 # jquery
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
