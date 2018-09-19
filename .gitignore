@@ -10,6 +10,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
+/db/mysql/
 !/log/.keep
 !/tmp/.keep
 
@@ -17,3 +18,7 @@
 /yarn-error.log
 
 .byebug_history
+
+
+.nbproject
+.env
