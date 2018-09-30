@@ -15,6 +15,9 @@ gem 'dotenv-rails'
 gem 'bcrypt',         '3.1.12'
 # faker
 gem 'faker'
+# 画像アップロード
+gem 'carrierwave',             '1.2.2'
+gem 'mini_magick',             '4.7.0'
 # pagination
 gem 'will_paginate',           '3.1.6'
 gem 'bootstrap-will_paginate', '1.0.0'
@@ -66,6 +69,10 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+#group :production do
+  gem 'fog', '1.42'
+#end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
